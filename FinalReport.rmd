@@ -1,7 +1,7 @@
 ---
 title: "Covid91 vaccine study Final2020"
-author: "Will Nicolai!"
-date: "put the date here"
+author: "Will Nicolai"
+date: "Fall 2020"
 output: html_document
 ---
 
