@@ -20,7 +20,7 @@ FinalData <- OldData %>% mutate(infected = recode(infected, aids = "covid", none
 
 A new  preventative vaccine (covid91) is under test in clinical trials. Given the nature of this vaccine it is suspected that the drug may exhibit different effectiveness across the variety of subpopulations tracked. Consider population subgroups by gender( guys and gals), drug use, and sexual orientation. Write a complete report that separately considers this drug for each subgroup and your recommendations as to whether people in the subgroup should take the vaccine.
 
-#Guys
+### Data For Guys
 
 ```{r}
 guysData <- filter(FinalData,sex=="guy")
@@ -49,7 +49,7 @@ fisher.test(table1)
 ```
 According to this test the odds are roughly 1.5:1 which, are not very good odds. Meaning you have a higher chance of contracting it if you are a guy taking the vacine instead of the placebo. 
 
-#gals
+### Data For Gals
 
 ```{r}
 galsData <- filter(FinalData,sex=="gal")
@@ -60,7 +60,7 @@ barchartGC(~infected + treatment,data=galsData, type="percent")
 ```
 According the graph, Those women who took the placebo contracted Covid at a higher rate. Meaning the drug was more effective on women than the placebo. About %64 percent of the placebo takers contracted covid.  where only about %34 percent of the drug takers got sick.
 
-#Numerical Summaries for Gals 
+# Numerical Summaries for Gals 
 
 ```{r}
 table1 <- xtabs(~infected + treatment, data=galsData)
@@ -79,9 +79,41 @@ fisher.test(table1)
 According to the results of the fisher exact test, you have  .5:1 odds of conrtacting covid while using the drug. Meaning you are less likely to contract Covid while using the drug making it more effective for women. 
 
 
-#drug users
-#LGBTQ+
-# Methods
+### Data For Drug users
+```{r}
+DrugData <- filter(FinalData,DrugUser=="yes")
+```
+```{r}
+barchartGC(~infected + treatment,data=DrugData)
+barchartGC(~infected + treatment,data=DrugData, type="percent")
+```
+These results are similar to the ones for the Gals. More drug users who contracted covid were not on the drug and used the placebo. 
+
+###  Numerical Summaries for Drug Users 
+
+```{r}
+table1 <- xtabs(~infected + treatment, data=DrugData)
+rowPerc(table1)
+colPerc(table1)
+``` 
+We can see that %67 of the drug users that contracted covid were using a placebo. Whereas %33 of them were using the vaccine. Meaning the vaccine was more effective on drug users in not contracting covid. 
+
+## Inferential for Drug Users
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
+The odds of contracting covid while on the drug are .5:1 which means you are less likely to contract covid while using the drug if you are a drug user. 
+
+
+
+### LGBTQ+
+
+
+
+### Methods
 
 <!--Decide on your methods:  use "variable analysis" or other appropriate descriptors.  Make sure to choose at least one graphical method and at least one numerical method. Discuss what data manipulations may be needed for example subsetting or other binning procedures and what sort of graphical displays and inferential tools will be used!-->
 
