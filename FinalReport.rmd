@@ -20,6 +20,36 @@ FinalData <- OldData %>% mutate(infected = recode(infected, aids = "covid", none
 
 A new  preventative vaccine (covid91) is under test in clinical trials. Given the nature of this vaccine it is suspected that the drug may exhibit different effectiveness across the variety of subpopulations tracked. Consider population subgroups by gender( guys and gals), drug use, and sexual orientation. Write a complete report that separately considers this drug for each subgroup and your recommendations as to whether people in the subgroup should take the vaccine.
 
+#Guys
+
+```{r}
+guysData <- filter(FinalData,sex=="guy")
+``` 
+```{r}
+barchartGC(~infected + treatment,data=guysData)
+barchartGC(~infected + treatment,data=guysData, type="percent")
+```
+According to this graph, the drug is not effective on guys. More guys that tool the drug contracted Covid than those who took the placebo.
+
+# Numerical Summaries for Guys 
+
+```{r}
+table1 <- xtabs(~infected + treatment, data=guysData)
+rowPerc(table1)
+colPerc(table1)
+```
+it shows that %58 of guys that contracted Covid had taken the vaccine as opposed to the %42 that took the placebo. 
+
+# Inferential for Guys
+
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
+According to this test the odds are roughly 1.5:1 which, are not very good odds. Meaning you have a higher chance of contracting it if you are a guy taking the vacine instead of the placebo. 
+
+#gals
 # Methods
 
 <!--Decide on your methods:  use "variable analysis" or other appropriate descriptors.  Make sure to choose at least one graphical method and at least one numerical method. Discuss what data manipulations may be needed for example subsetting or other binning procedures and what sort of graphical displays and inferential tools will be used!-->
