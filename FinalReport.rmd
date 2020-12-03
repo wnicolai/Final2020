@@ -110,19 +110,37 @@ The odds of contracting covid while on the drug are .5:1 which means you are les
 
 
 ### LGBTQ+
+```{r}
+lgbtqData <- filter(FinalData,LGBTQ=="gay")
+```
+```{r}
+barchartGC(~infected + treatment,data=lgbtqData)
+barchartGC(~infected + treatment,data=lgbtqData, type="percent")
+```
+This chart shows a little more drastic than the guys. Of the subjects who contracted covid, more of them were on the drug as opposed to the placebo. Roughly %70 of them were on the drug.
 
+### Numerical Summaries for LGBTQ 
 
+```{r}
+table1 <- xtabs(~infected + treatment, data=lgbtqData)
+rowPerc(table1)
+colPerc(table1)
+```
+Of the people who identify as LGBTQ+ that contracted Covid, roughly %71 of them were on the drug. Showing the drug was ineffective in preventing Covid. 
 
-### Methods
+## Inferential for LGBTQ
 
-<!--Decide on your methods:  use "variable analysis" or other appropriate descriptors.  Make sure to choose at least one graphical method and at least one numerical method. Discuss what data manipulations may be needed for example subsetting or other binning procedures and what sort of graphical displays and inferential tools will be used!-->
-
-# Results
-
-<!--Divide this section into two sub-sections:  One for your descriptive  results and one for your inferential results.!-->
-
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
+According to these results. The odds of contracting covid while on the drug, if you identify as LGBTQ+ is around 2.5:1 which is the highest rate of the ones we've discussed. 
 
 
 # Discussion and Conclusion
 
 <!--Discussion and conclusion here.  If you found a relationship be sure to consider whether the relationship occurs because one of the variavbles causes the other, or whether they perhasps are related for some other reason.  Watch the chapter 6 videos from the GeorgeTown videos collection.!-->
+
+
+
